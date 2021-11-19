@@ -1,27 +1,24 @@
 #ScratchSplash 
-import requests 
+import requests, json
 from urllib.parse import urlparse
-import json
 API = "https://api.scratch.mit.edu/"
 def scrape(url):
     return requests.get(url).json()
-
-def get_userid(username="gdpr0000018"):
+def get_userid(username):
     user_obj = API + "users/" + username
     user_obj = scrape(user_obj)
     return user_obj["id"]
-def get_message_count(username="ajnin123"):
+def get_message_count(username):
     a = scrape(f"https://api.scratch.mit.edu/users/{username}/messages/count")
     return a["count"]
-def get_user_country(username="evotech"):
+def get_user_country(username):
     user_obj = API + "users/" + username
     user_obj = scrape(user_obj)
     return user_obj["profile"]["country"]
-def get_studio_name(studio_id="29912367"):
+def get_studio_name(studio_id):
     a = API + "studios/" + studio_id
-    a = scrape(a)
-    return a["title"]
-def get_studio_stats(studio_id="16346"):
+    return scrape(a)["title"]
+def get_studio_stats(studio_id):
     a = API + "studios/" + studio_id
     a = scrape(a)
     project = a["stats"]["projects"]
@@ -52,4 +49,3 @@ def display_user_data(user):
 Powered by ScratchSplash
 """
     return a
-    
